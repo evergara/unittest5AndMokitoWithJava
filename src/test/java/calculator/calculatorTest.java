@@ -1,9 +1,6 @@
 package calculator;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,5 +26,64 @@ class CalculatorTest {
         System.out.println(" @Test -> calculatorNotNullTest()");
     }
 
+    @Test
+    public void addAssertTest(){
+        //1.Arrange or setUp
+        int expected = 10;
+        int actual;
+        //2.Act
+        actual = calculator.add(7,3);
+        //3.Assert
+        assertEquals(expected,actual);
+        System.out.println(" @Test -> addAssertTest()");
+    }
 
+    @Test
+    public void addAssertTestOnLinea(){
+        assertEquals(25, calculator.add(15, 10));
+        System.out.println(" @Test -> addAssertTestOnLinea()");
+    }
+    @Test
+    public void subtractAssertTest(){
+        //1.Arrange or setUp
+        int expected = 20;
+        int actual;
+        //2.Act
+        actual = calculator.subtract(50,30);
+        //3.Assert
+        assertEquals(expected,actual);
+        System.out.println(" @Test -> subtractAssertTest()");
+    }
+
+    @Test
+    public void multiplyAssertTestOnLinea(){
+        assertEquals(50, calculator.multiply(5, 10));
+        System.out.println(" @Test -> multiplyAssertTestOnLinea()");
+    }
+
+    @Test
+    public void divideAssertTestOnLinea(){
+        assertEquals(50, calculator.divide(500, 10));
+        System.out.println(" @Test -> divideAssertTestOnLinea()");
+    }
+    @Test
+    public void divideAssertEqualZeroTestOnLinea(){
+        assertEquals(0, calculator.divide(500, 0));
+        System.out.println(" @Test -> divideAssertEqualZeroTestOnLinea()");
+    }
+
+    @Test
+    @DisplayName("Method divideByzero")
+    public void divideByZeroAssertArithmeticException(){
+       // fail("FAllo manual, \"No se puede dividir entre cero\"");
+        assertThrows(ArithmeticException.class, ()->calculator.divideByZero(500, 0), "No se puede dividir entre cero");
+        System.out.println(" @Test -> divideByZeroAssertArithmeticException()");
+    }
+
+    @Disabled("Disable unit bug 23 be resolved")
+    @Test
+    public void divideByZeroAssertArithmeticException2(){
+        fail("FAllo manual, \"No se puede dividir entre cero\"");
+        System.out.println(" @Test -> divideByZeroAssertArithmeticException2()");
+    }
 }
