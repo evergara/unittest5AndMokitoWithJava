@@ -6,7 +6,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
 
-    Calculator calculator;
+    private Calculator calculator;
+    private static Calculator staticCalculator;
+    @BeforeAll
+    public static void  beforeAllSetUp(){
+        staticCalculator = new Calculator();
+        System.out.println("@BeforeAll -> beforeAllSetUp()");
+    }
+    @AfterAll
+    public static void tearDownAfterAll(){
+        staticCalculator = null;
+        System.out.println("@AfterAll -> tearDownAfterAll()");
+    }
 
     @BeforeEach
     public void setUp(){
@@ -104,4 +115,23 @@ class CalculatorTest {
             assertEquals(50, calculator.add(25, 25));
         }
     }
+
+    @Nested
+    class AddTestUseBeforeAllSetUp{
+        @Test
+        public void addNegativeTest(){
+            assertEquals(-30, staticCalculator.add(-15, -15));
+        }
+
+        @Test
+        public void addZeroTest(){
+            assertEquals(0, staticCalculator.add(-1, 1));
+        }
+
+        @Test
+        public void addPositiveTest(){
+            assertEquals(50, staticCalculator.add(25, 25));
+        }
+    }
+
 }
