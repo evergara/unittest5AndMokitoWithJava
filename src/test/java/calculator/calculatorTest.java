@@ -86,4 +86,22 @@ class CalculatorTest {
         fail("FAllo manual, \"No se puede dividir entre cero\"");
         System.out.println(" @Test -> divideByZeroAssertArithmeticException2()");
     }
+
+    @Nested
+    class AddTest{
+        @Test
+        public void addNegativeTest(){
+            assertEquals(-30, calculator.add(-15, -15));
+        }
+
+        @Test
+        public void addZeroTest(){
+            assertEquals(0, calculator.add(-1, 1));
+        }
+
+        @Test
+        public void addPositiveTest(){
+            assertEquals(50, calculator.add(25, 25));
+        }
+    }
 }
