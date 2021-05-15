@@ -1,6 +1,12 @@
 package calculator;
 
+import com.sun.org.apache.xpath.internal.Arg;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -132,6 +138,23 @@ class CalculatorTest {
         public void addPositiveTest(){
             assertEquals(50, staticCalculator.add(25, 25));
         }
+
+    }
+
+    @ParameterizedTest(name = "{index} => a={0}, b={0}, add={0}")
+    @MethodSource("addProviderData")
+    public void addParametrizedTest(int a, int b, int add) {
+        assertEquals(add, staticCalculator.add(a, b));
+    }
+
+    private static  Stream<Arguments> addProviderData(){
+        return Stream.of(
+                Arguments.of(6,2,8),
+                Arguments.of(30,20,50),
+                Arguments.of(-6,2,-4),
+                Arguments.of(-6,0,-6)
+        );
+
     }
 
 }
