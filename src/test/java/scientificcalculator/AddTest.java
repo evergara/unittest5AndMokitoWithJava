@@ -79,4 +79,16 @@ class AddTest {
         Mockito.verify(validaterDateCalculator).check("2");
         System.out.println(" @Test -> addTest()");
     }
+
+    @Test
+    public void addRealMethodTest(){
+        Mockito.when(validaterDateCalculator.check(3)).thenCallRealMethod();
+        assertEquals(true, validaterDateCalculator.check(3));
+    }
+
+    @Test
+    public void addRealMethod2Test(){
+        Mockito.when(validaterDateCalculator.check(0)).thenCallRealMethod();
+        assertEquals(false, validaterDateCalculator.check(0));
+    }
 }
