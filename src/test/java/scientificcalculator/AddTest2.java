@@ -52,7 +52,7 @@ class AddTest2 {
 
     @Test
     public void addAnswerTest(){
-        //1.Arrange or setUp
+        //1.Arrange or setUp --> Given
         int expected = 5;
         int actual;
 
@@ -63,13 +63,34 @@ class AddTest2 {
             }
         };
         Mockito.when(validaterDateCalculator.check(3)).thenAnswer(answer);
-
-        //2.Act
+        Mockito.when(validaterDateCalculator.check(2)).thenAnswer(answer);
+        //2.Act --> When
         actual =  add.add(3,2);
-        //3.Assert
+        //3.Assert --> Then
         assertEquals(expected, actual);
         Mockito.verify(validaterDateCalculator).check(3);
         Mockito.verify(validaterDateCalculator).check(2);
+    }
+
+
+    @Test
+    public void addAnswerWithAnyTest(){
+        //1.Arrange or setUp --> Given
+        int expected = 5;
+        int actual;
+
+        Answer<Boolean> answer = new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
+                return true;
+            }
+        };
+        Mockito.when(validaterDateCalculator.check(Mockito.anyInt())).thenAnswer(answer);
+        //2.Act --> When
+        actual =  add.add(3,2);
+        //3.Assert --> Then
+        assertEquals(expected, actual);
+
     }
 
 }
