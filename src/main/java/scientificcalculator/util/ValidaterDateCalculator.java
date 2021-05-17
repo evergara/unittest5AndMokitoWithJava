@@ -15,4 +15,16 @@ public class ValidaterDateCalculator {
             return  false;
         }
     }
+
+    public boolean checkZero(Object o){
+        if (o instanceof  Integer){
+            if ((Integer)o == 0) {
+                throw new ArithmeticException("No se puede dividir por Zero");
+            }else {
+                return true;
+            }
+        }else {
+            return  false;
+        }
+    }
 }
