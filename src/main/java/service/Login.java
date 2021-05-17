@@ -15,7 +15,7 @@ public class Login {
         return isLogin;
     }
     public void doLogin(){
-        webservice.login("Admin", "123", new Callback() {
+        webservice.login("admin", "123", new Callback() {
             @Override
             public void onSuccess(String response) {
                 System.out.println(response);

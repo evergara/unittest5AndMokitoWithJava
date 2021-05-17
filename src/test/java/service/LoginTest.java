@@ -62,4 +62,28 @@ class LoginTest {
         assertFalse(login.isLogin());
         BDDMockito.verify(webservice, BDDMockito.times(1)).login(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.any(Callback.class));
     }
+
+    @Test
+    public void doLoginArgumentTest() {
+       login.doLogin();
+       BDDMockito.verify(webservice, BDDMockito.times(1)).login(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), callbackArgumentCaptor.capture());
+       assertEquals(login.isLogin(), false);
+
+       Callback callback  = callbackArgumentCaptor.getValue();
+       callback.onSuccess("OK");
+       assertEquals(login.isLogin(), true);
+
+    }
+
+    @Test
+    public void doLoginArgumentErrosTest() {
+        login.doLogin();
+        BDDMockito.verify(webservice, BDDMockito.times(1)).login(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), callbackArgumentCaptor.capture());
+        assertEquals(login.isLogin(), false);
+
+        Callback callback  = callbackArgumentCaptor.getValue();
+        callback.onFail("Error");
+        assertEquals(login.isLogin(), false);
+
+    }
 }
