@@ -108,6 +108,7 @@ class AddTest2 {
         add.addPrint(4,5);
         //3.Assert --> Then
 
+        BDDMockito.verify(printMessage).showMessage(9);
         BDDMockito.verify(validaterDateCalculator).check(4);
         BDDMockito.verify(validaterDateCalculator).check(5);
         BDDMockito.verify(validaterDateCalculator, BDDMockito.times(1)).check(4);
