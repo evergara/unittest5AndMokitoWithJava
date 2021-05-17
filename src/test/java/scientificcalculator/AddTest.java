@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import scientificcalculator.util.PrintMessage;
 import scientificcalculator.util.ValidaterDateCalculator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,11 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddTest {
     private Add add;
     private ValidaterDateCalculator validaterDateCalculator;
+    private PrintMessage printMessage;
 
     @BeforeEach
     public void setUp(){
         validaterDateCalculator = Mockito.mock(ValidaterDateCalculator.class);
-        add = new Add(validaterDateCalculator);
+        printMessage = Mockito.mock(PrintMessage.class);
+        add = new Add(validaterDateCalculator, printMessage);
         System.out.println("@BeforeEach -> setUp()");
     }
 

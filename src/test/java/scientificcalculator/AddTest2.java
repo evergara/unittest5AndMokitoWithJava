@@ -3,21 +3,25 @@ package scientificcalculator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import scientificcalculator.util.PrintMessage;
 import scientificcalculator.util.ValidaterDateCalculator;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddTest2 {
     @InjectMocks
     private Add add;
     @Mock
     private ValidaterDateCalculator validaterDateCalculator;
+    @Mock
+    private PrintMessage printMessage;
 
     @BeforeEach
     public void setUp(){
@@ -91,6 +95,26 @@ class AddTest2 {
         //3.Assert --> Then
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    public void addPrintTest(){
+        //1.Arrange --> Given
+        int expected = 9;
+        int actual;
+        BDDMockito.given(validaterDateCalculator.check(4)).willReturn(true);
+        BDDMockito.given(validaterDateCalculator.check(5)).willReturn(true);
+        //2.Act --> When
+        add.addPrint(4,5);
+        //3.Assert --> Then
+
+        BDDMockito.verify(validaterDateCalculator).check(4);
+        BDDMockito.verify(validaterDateCalculator).check(5);
+        BDDMockito.verify(validaterDateCalculator, BDDMockito.times(1)).check(4);
+        BDDMockito.verify(validaterDateCalculator, BDDMockito.times(1)).check(5);
+        BDDMockito.verify(validaterDateCalculator, BDDMockito.never()).check(99);
+        BDDMockito.verify(validaterDateCalculator, BDDMockito.atLeast(1)).check(4);
+        BDDMockito.verify(validaterDateCalculator, BDDMockito.atMost(1)).check(4);
     }
 
 }
