@@ -3,11 +3,7 @@ package scientificcalculator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import scientificcalculator.util.PrintMessage;
@@ -22,6 +18,9 @@ class AddTest2 {
     private ValidaterDateCalculator validaterDateCalculator;
     @Mock
     private PrintMessage printMessage;
+
+    @Captor
+    private ArgumentCaptor<Integer> captor;
 
     @BeforeEach
     public void setUp(){
@@ -118,6 +117,22 @@ class AddTest2 {
         BDDMockito.verify(validaterDateCalculator, BDDMockito.never()).check(99);
         BDDMockito.verify(validaterDateCalculator, BDDMockito.atLeast(1)).check(4);
         BDDMockito.verify(validaterDateCalculator, BDDMockito.atMost(1)).check(4);
+    }
+
+    @Test
+    public void addPrintCaptorTest(){
+        //1.Arrange --> Given
+        int expected = 9;
+        int actual;
+        String messageError = "Numero Invalido";
+        BDDMockito.given(validaterDateCalculator.check(4)).willReturn(true);
+        BDDMockito.given(validaterDateCalculator.check(5)).willReturn(true);
+        //2.Act --> When
+        add.addPrint(4,5);
+        //3.Assert --> Then
+        BDDMockito.verify(printMessage).showMessage(captor.capture());
+        assertEquals(captor.getValue().intValue(), 9);
+
     }
 
 }
