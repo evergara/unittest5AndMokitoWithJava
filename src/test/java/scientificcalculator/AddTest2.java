@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import scientificcalculator.util.ValidaterDateCalculator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,6 +48,28 @@ class AddTest2 {
         Mockito.verify(validaterDateCalculator).check(3);
         Mockito.verify(validaterDateCalculator).check(2);
         System.out.println(" @Test -> subtractAssertTest()");
+    }
+
+    @Test
+    public void addAnswerTest(){
+        //1.Arrange or setUp
+        int expected = 5;
+        int actual;
+
+        Answer<Boolean> answer = new Answer<Boolean>() {
+            @Override
+            public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
+                return true;
+            }
+        };
+        Mockito.when(validaterDateCalculator.check(3)).thenAnswer(answer);
+
+        //2.Act
+        actual =  add.add(3,2);
+        //3.Assert
+        assertEquals(expected, actual);
+        Mockito.verify(validaterDateCalculator).check(3);
+        Mockito.verify(validaterDateCalculator).check(2);
     }
 
 }
