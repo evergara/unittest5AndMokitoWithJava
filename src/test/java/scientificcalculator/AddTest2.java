@@ -102,6 +102,7 @@ class AddTest2 {
         //1.Arrange --> Given
         int expected = 9;
         int actual;
+        String messageError = "Numero Invalido";
         BDDMockito.given(validaterDateCalculator.check(4)).willReturn(true);
         BDDMockito.given(validaterDateCalculator.check(5)).willReturn(true);
         //2.Act --> When
@@ -109,6 +110,7 @@ class AddTest2 {
         //3.Assert --> Then
 
         BDDMockito.verify(printMessage).showMessage(9);
+        BDDMockito.verify(printMessage,BDDMockito.never()).showError(messageError);
         BDDMockito.verify(validaterDateCalculator).check(4);
         BDDMockito.verify(validaterDateCalculator).check(5);
         BDDMockito.verify(validaterDateCalculator, BDDMockito.times(1)).check(4);
