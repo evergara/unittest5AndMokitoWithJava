@@ -77,4 +77,18 @@ class ValidaterDateCalculatorTest {
         }
         assertNotNull(exception);
     }
+
+    @Test
+    public void doubleToInt(){
+        assertEquals(9, validaterDateCalculator.doubleToInt(9.9));
+    }
+    @Test
+    public void doubleToIntErrorZero(){
+        assertEquals(0, validaterDateCalculator.doubleToInt(5));
+    }
+    @Test
+    public void doubleToIntErrorStringZero(){
+        assertEquals(0, validaterDateCalculator.doubleToInt("10"));
+    }
+
 }
